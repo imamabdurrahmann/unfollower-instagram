@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useDeferredValue, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { UploadCloud, ArrowRight, UserMinus, Users, UserCheck, RefreshCw, Search, ExternalLink, Copy, Download, Loader2 } from "lucide-react";
 import { parseInstagramData, type IgUser } from "@/lib/parser";
@@ -46,11 +46,11 @@ export default function Home() {
           }
 
           if (type === "followers") {
-            setFollowers((prev) => [...prev, ...users]);
-            setFollowerFiles((prev) => [...prev, file.name]);
+            setFollowers((prev) => prev.concat(users));
+            setFollowerFiles((prev) => prev.concat(file.name));
           } else {
-            setFollowing((prev) => [...prev, ...users]);
-            setFollowingFiles((prev) => [...prev, file.name]);
+            setFollowing((prev) => prev.concat(users));
+            setFollowingFiles((prev) => prev.concat(file.name));
           }
         } catch (err) {
           setError("Gagal membaca file JSON: " + file.name);
@@ -102,20 +102,27 @@ export default function Home() {
     setStep(1);
   };
 
-  const getActiveList = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+
+  const getActiveList = useCallback(() => {
     switch (activeTab) {
       case "notFollowingBack": return notFollowingBack;
       case "fans": return fans;
       case "mutuals": return mutuals;
       default: return [];
     }
-  };
+  }, [activeTab, notFollowingBack, fans, mutuals]);
 
   const filteredList = useMemo(() => {
-    return getActiveList().filter(user => 
-      user.username.toLowerCase().includes(searchQuery.toLowerCase())
+    const list = getActiveList();
+    const query = deferredSearchQuery.toLowerCase();
+    if (!query) return list;
+    
+    return list.filter(user => 
+      user.username.toLowerCase().includes(query)
     );
-  }, [activeTab, getActiveList, searchQuery]);
+  }, [getActiveList, deferredSearchQuery]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 60; // Nampilin 60 data per halaman (pas buat grid)

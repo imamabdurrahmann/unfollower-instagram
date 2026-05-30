@@ -33,25 +33,33 @@ export function parseInstagramData(jsonData: any): IgUser[] {
     }
   };
 
-  // Fungsi rekursif untuk mencari 'string_list_data' di seluruh hierarki JSON
-  const traverse = (node: any) => {
-    if (!node) return;
+  // Menggunakan Stack untuk Iterative DFS agar memori lebih efisien dan terhindar dari stack overflow
+  const stack = [jsonData];
+  
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (!current) continue;
 
-    if (typeof node === "object") {
-      if ("string_list_data" in node) {
-        extractFromItem(node);
-      } else if (Array.isArray(node)) {
-        node.forEach(traverse);
+    if (typeof current === "object") {
+      if ("string_list_data" in current) {
+        extractFromItem(current);
+      } else if (Array.isArray(current)) {
+        for (let i = current.length - 1; i >= 0; i--) {
+          if (current[i] && typeof current[i] === "object") {
+            stack.push(current[i]);
+          }
+        }
       } else {
-        Object.values(node).forEach(traverse);
+        for (const key in current) {
+          if (Object.prototype.hasOwnProperty.call(current, key)) {
+            const val = current[key];
+            if (val && typeof val === "object") {
+              stack.push(val);
+            }
+          }
+        }
       }
     }
-  };
-
-  try {
-    traverse(jsonData);
-  } catch (error) {
-    console.error("Error parsing Instagram data:", error);
   }
 
   return users;
