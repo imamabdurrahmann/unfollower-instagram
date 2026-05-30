@@ -457,7 +457,7 @@ export default function Home() {
           <p>
             Dibuat oleh{" "}
             <a 
-              href="https://github.com/imamabdurrahmann" 
+              href="https://www.instagram.com/codingwithimam/" 
               target="_blank" 
               rel="noreferrer"
               className="text-neutral-400 hover:text-white font-medium underline decoration-neutral-600 underline-offset-4 transition-colors"
