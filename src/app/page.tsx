@@ -452,8 +452,19 @@ export default function Home() {
       </div>
       
       {step !== 3 && (
-        <div className="absolute bottom-6 text-center text-neutral-600 text-sm flex items-center gap-2 z-10">
+        <div className="absolute bottom-6 text-center text-neutral-600 text-sm flex flex-col items-center gap-1 z-10">
           <p>100% Pemrosesan di Peramban. Tidak ada data yang dikirim keluar.</p>
+          <p>
+            Dibuat oleh{" "}
+            <a 
+              href="https://github.com/imamabdurrahmann" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-neutral-400 hover:text-white font-medium underline decoration-neutral-600 underline-offset-4 transition-colors"
+            >
+              Imam Abdurrahman
+            </a>
+          </p>
         </div>
       )}
     </main>
