@@ -111,7 +111,6 @@ export default function Home() {
     setStep(1);
   };
 
-  const [searchQuery, setSearchQuery] = useState("");
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
   const getActiveList = useCallback(() => {
