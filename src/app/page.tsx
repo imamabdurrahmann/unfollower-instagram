@@ -73,12 +73,21 @@ export default function Home() {
     
     // Memberikan waktu browser untuk render state loading sebelum parsing berat
     setTimeout(() => {
-      const followersSet = new Set(followers.map((u) => u.username));
-      const followingSet = new Set(following.map((u) => u.username));
+      // 1. Deduplikasi data: Jaga-jaga kalau user upload file yang sama dengan nama beda, 
+      // atau ada username yang tumpang tindih di beberapa file.
+      const uniqueFollowersMap = new Map(followers.map(u => [u.username, u]));
+      const uniqueFollowingMap = new Map(following.map(u => [u.username, u]));
 
-      const notFollowingBackList = following.filter((u) => !followersSet.has(u.username));
-      const fansList = followers.filter((u) => !followingSet.has(u.username));
-      const mutualsList = following.filter((u) => followersSet.has(u.username));
+      const uniqueFollowers = Array.from(uniqueFollowersMap.values());
+      const uniqueFollowing = Array.from(uniqueFollowingMap.values());
+
+      const followersSet = new Set(uniqueFollowersMap.keys());
+      const followingSet = new Set(uniqueFollowingMap.keys());
+
+      // 2. Kalkulasi logika
+      const notFollowingBackList = uniqueFollowing.filter((u) => !followersSet.has(u.username));
+      const fansList = uniqueFollowers.filter((u) => !followingSet.has(u.username));
+      const mutualsList = uniqueFollowing.filter((u) => followersSet.has(u.username));
 
       setNotFollowingBack(notFollowingBackList);
       setFans(fansList);
