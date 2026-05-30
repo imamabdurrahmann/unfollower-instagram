@@ -165,7 +165,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 md:p-12 overflow-hidden relative bg-black">
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-12 overflow-x-hidden relative bg-black">
 
       <div className="z-10 w-full max-w-6xl flex flex-col gap-8 items-center mt-2 md:mt-8">
         
@@ -324,8 +324,8 @@ export default function Home() {
               key="step3"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full glass-panel flex flex-col overflow-hidden border border-neutral-800"
-              style={{ height: "85vh" }}
+              className="w-full glass-panel flex flex-col border border-neutral-800 mb-12 shadow-2xl"
+              style={{ minHeight: "80vh" }}
             >
               {/* Dashboard Header */}
               <div className="flex flex-col md:flex-row items-center justify-between p-6 border-b border-neutral-800 bg-neutral-950/50 gap-4">
@@ -395,7 +395,7 @@ export default function Home() {
               </div>
 
               {/* List Area */}
-              <div className="flex-1 overflow-y-auto p-6 custom-scrollbar bg-black/20">
+              <div className="flex-1 p-6 bg-black/20">
                 {filteredList.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-neutral-600">
                     <Users size={48} className="mb-4 opacity-50" />
