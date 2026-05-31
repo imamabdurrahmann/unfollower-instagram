@@ -192,11 +192,11 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              className="w-full max-w-4xl glass-panel p-8 md:p-12 mt-4 text-center relative"
+              className="w-full max-w-4xl glass-panel p-6 md:p-12 mt-4 text-center relative"
             >
-              <h2 className="text-3xl font-bold mb-10 text-white">Cara Kerja</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-10 text-white">Cara Kerja</h2>
               
-              <div className="grid md:grid-cols-3 gap-10 mb-12 relative z-10">
+              <div className="grid md:grid-cols-3 gap-8 md:gap-10 mb-10 md:mb-12 relative z-10">
                 {/* 1 */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-neutral-900 flex items-center justify-center border border-neutral-800">
@@ -239,9 +239,9 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              className="w-full max-w-4xl glass-panel p-8 md:p-14 mt-4 text-center"
+              className="w-full max-w-4xl glass-panel p-6 md:p-14 mt-4 text-center"
             >
-              <h2 className="text-3xl font-bold mb-8 text-white">Unggah File Kamu</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-white">Unggah File Kamu</h2>
               
               <div className="grid md:grid-cols-2 gap-6 w-full">
                 {/* Followers Dropzone */}
@@ -452,8 +452,8 @@ export default function Home() {
       </div>
       
       {step !== 3 && (
-        <div className="absolute bottom-6 text-center text-neutral-600 text-sm flex flex-col items-center gap-1 z-10">
-          <p>100% Pemrosesan di Peramban. Tidak ada data yang dikirim keluar.</p>
+        <div className="mt-auto pt-8 pb-4 text-center text-neutral-600 text-sm flex flex-col items-center gap-1 z-10 w-full relative">
+          <p className="px-4">100% Pemrosesan di Peramban. Tidak ada data yang dikirim keluar.</p>
           <p>
             Dibuat oleh{" "}
             <a 
